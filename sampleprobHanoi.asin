@@ -1,0 +1,91 @@
+disknum = bilang(pahingi("Number of disks: "));
+start = pahingi("Name of start peg: ");
+middle = pahingi("Name of middle peg: ");
+end = pahingi("Name of end peg: ");
+
+S = [disknum+1]; 
+M = [disknum+1]; 
+E = [disknum+1]; 
+
+temp = disknum;
+hanggat (temp > 0) {
+    idagdag(S, temp);
+    temp = temp - 1;
+}
+
+moves = (2**disknum) - 1;
+even = (moves % 2 == 0);
+
+sdisk = 0;
+xdisk = 0;
+edisk = 0;
+
+kapag (hindi even) {
+    sa bawat i sa [1:moves] {
+        kapag (i % 3 == 1) {
+            sdisk = silipin(S);
+            edisk = silipin(E);
+            kapag (sdisk < edisk) {
+                idagdag(E, tanggalan(S));
+                ilimbag("Move", start, "to", end);
+            } kundiman {
+                idagdag(S, tanggalan(E));
+                ilimbag("Move", end, "to", start);
+            }
+        } ngunit kapag (i % 3 == 2) {
+            sdisk = silipin(S);
+            mdisk = silipin(M);
+            kapag (sdisk < mdisk) {
+                idagdag(M, tanggalan(S));
+                ilimbag("Move", start, "to", middle);
+            } kundiman {
+                idagdag(S, tanggalan(M));
+                ilimbag("Move", middle, "to", start);
+            }
+        } kundiman {
+            mdisk = silipin(M);
+            edisk = silipin(E);
+            kapag (mdisk < edisk) {
+                idagdag(E, tanggalan(M));
+                ilimbag("Move", middle, "to", end);
+            } kundiman {
+                idagdag(M, tanggalan(E));
+                ilimbag("Move", end, "to", middle);
+            }
+        }
+    }
+} kundiman {
+    sa bawat i sa [1:moves] {
+        kapag (i % 3 == 1) {
+            sdisk = silipin(S);
+            mdisk = silipin(M);
+            kapag (sdisk < mdisk) {
+                idagdag(M, tanggalan(S));
+                ilimbag("Move", start, "to", middle);
+            } kundiman {
+                idagdag(S, tanggalan(M));
+                ilimbag("Move", middle, "to", start);
+            }
+        } ngunit kapag (i % 3 == 2) {
+            sdisk = silipin(S);
+            edisk = silipin(E);
+            kapag (sdisk < edisk) {
+                idagdag(E, tanggalan(S));
+                ilimbag("Move", start, "to", end);
+            } kundiman {
+                idagdag(S, tanggalan(E));
+                ilimbag("Move", end, "to", start);
+            }
+        } kundiman {
+            edisk = silipin(E);
+            mdisk = silipin(M);
+            kapag (edisk < mdisk) {
+                idagdag(M, tanggalan(E));
+                ilimbag("Move", end, "to", middle);
+            } kundiman {
+                idagdag(E, tanggalan(M));
+                ilimbag("Move", middle, "to", end);
+            }
+        }
+    }
+}

@@ -1,0 +1,82 @@
+heap=[];
+
+no = pahingi("Enter number of elements: ");
+num = bilang(no);
+ilimbag(num, " elements to be sorted.");
+ilimbag("");
+
+i=0;
+hanggat (i<num){
+	k = pahingi("Enter number to be sorted: ");
+	klut = lutang(k);
+	idagdag(heap,klut);
+	i=i+1;
+}
+ilimbag("");
+ilimbag("Unsorted heap: ", heap);
+
+i=1;
+
+hanggat (i<num){
+	c = i;
+
+	hanggat(Totoo){
+		ugat = (c-1)/2;
+		root = bilang(ugat);
+		kapag (heap[root] < heap[c]){
+			temp = heap[root];
+			palitan(heap,root,heap[c]);
+			palitan(heap,c,temp);
+		}
+		c = root;
+		kapag (c == 0){
+			lumisan;
+		}
+	}
+	i = i+1;
+}
+
+
+j = num-1;
+i=0;
+hanggat (i<num-1){
+	idagdag(heap,0);
+	i=i+1;
+}
+
+hanggat (j >= 0){
+	temp = heap[0];
+	palitan(heap,0,heap[j]);
+	palitan(heap,j,temp);
+	root = 0;
+
+	hanggat (Totoo){
+
+		c = (2*root)+1;
+
+		kapag((heap[c] < heap[c+1]) at (c < j-1)){
+			c = c+1;
+		}
+
+		kapag((heap[root] < heap[c]) at c<j){
+			temp = heap[root];
+			palitan(heap,root,heap[c]);
+			palitan(heap,c,temp);
+		}
+		root = c;
+
+		kapag(c>=j){
+			lumisan;
+		}
+	}
+	j=j-1;
+}
+
+
+sortedheap = [];
+i=0;
+hanggat (i<num){
+	idagdag(sortedheap, heap[i]);
+	i=i+1;
+}
+ilimbag("Sorted heap is: ", sortedheap);
